@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexGen Evaluation - Revolutionary Answer Sheet Evaluator</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <!-- Animated Background Globs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="container fade-in-up">
+        <div class="header-top">
+            <div class="user-pill glass-panel fade-in-up">
+                <img src="{{ user.get('picture', 'https://ui-avatars.com/api/?name=User&background=random') }}"
+                    alt="Profile" class="user-avatar"
+                    onerror="this.src='https://ui-avatars.com/api/?name=User&background=random'">
+                <span class="user-name">{{ user.get('given_name', 'Teacher') }}</span>
+                <a href="/logout" class="logout-btn" title="Sign Out">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-icon">✨</div>
+            </div>
+            <h1>NexGen <span class="text-gradient">Evaluation</span></h1>
+            <p>Next-Generation Automated Handwriting & Answer Evaluation</p>
+        </header>
+
+        <main>
+            <div class="grid-layout">
+                <!-- Teacher Section -->
+                <div class="glass-panel teacher-section slide-in-left">
+                    <div class="panel-header">
+                        <span class="icon">📝</span>
+                        <h2>Reference Configuration</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacher-answer">Teacher's Answer Key</label>
+                        <div class="textarea-wrapper">
+                            <textarea id="teacher-answer"
+                                placeholder="Enter the core concepts, keywords, or the exact reference answer..."></textarea>
+                            <div class="focus-border"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group marks-group">
+                        <label for="total-marks">Total Marks Allocated</label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">🏆</span>
+                            <input type="number" id="total-marks" value="10" min="1" step="0.5">
+                            <div class="focus-border"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group difficulty-group">
+                        <label>Grading Strictness</label>
+                        <div class="radio-wrapper">
+                            <label class="radio-btn"><input type="radio" name="difficulty" value="Easy"> Easy</label>
+                            <label class="radio-btn"><input type="radio" name="difficulty" value="Medium" checked>
+                                Medium</label>
+                            <label class="radio-btn"><input type="radio" name="difficulty" value="Hard"> Hard</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group ocr-group" style="margin-top: 1.5rem;">
+                        <label for="ocr-engine-model">OCR Engine</label>
+                        <div class="input-wrapper" style="position: relative;">
+                            <select id="ocr-engine-model" class="modern-select"
+                                style="width: 100%; padding: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-main); font-family: inherit; font-size: 1rem; appearance: none; cursor: pointer; outline: none;">
+                                <option value="Paddle OCR" style="color: #000; background: #fff;">Paddle OCR (Local,
+                                    Slow)</option>
+                                <option value="Gemini OCR" style="color: #000; background: #fff;">Gemini OCR (Fast,
+                                    Cloud)</option>
+                            </select>
+                            <div
+                                style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted); font-size: 0.8rem;">
+                                ▼</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group model-group" style="margin-top: 1.5rem;">
+                        <label for="evaluation-model">Evaluation Model</label>
+                        <div class="input-wrapper" style="position: relative;">
+                            <select id="evaluation-model" class="modern-select"
+                                style="width: 100%; padding: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: var(--text-main); font-family: inherit; font-size: 1rem; appearance: none; cursor: pointer; outline: none;">
+                                <option value="NexGen" style="color: #000; background: #fff;">NexGen
+                                </option>
+                                <option value="Groq" style="color: #000; background: #fff;">Groq </option>
+                                <option value="Gemini" style="color: #000; background: #fff;">Gemini
+                                </option>
+                                <option value="DeepSeek" style="color: #000; background: #fff;">Deepseek.com
+                                </option>
+                                <option value="Cerebras" style="color: #000; background: #fff;">Cerebras.ai
+                                </option>
+                                <!-- <option value="NexGen" style="color: #000; background: #fff;">NexGen (Unlimited tokens)
+                                </option>
+                                <option value="Groq" style="color: #000; background: #fff;">Groq (Free Tier) </option>
+                                <option value="Gemini" style="color: #000; background: #fff;">Gemini (Free Tier)
+                                </option>
+                                <option value="DeepSeek" style="color: #000; background: #fff;">Deepseek.com (Paid)
+                                </option>
+                                <option value="Cerebras" style="color: #000; background: #fff;">Cerebras.ai (Free Tier)
+                                </option> -->
+                            </select>
+                            <div
+                                style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted); font-size: 0.8rem;">
+                                ▼</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Section -->
+                <div class="glass-panel upload-section slide-in-right">
+                    <div class="panel-header">
+                        <span class="icon">📄</span>
+                        <h2>Student Submission</h2>
+                    </div>
+
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="drop-zone__content">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                            </div>
+                            <span class="drop-zone__prompt" id="drop-zone-prompt">Drag & Drop Student PDFs Here (Bulk
+                                Upload)</span>
+                            <span class="drop-zone__sub-prompt">or click to browse local files</span>
+                        </div>
+                        <input type="file" name="file" id="file-input" class="drop-zone__input" accept="application/pdf"
+                            multiple>
+                    </div>
+
+                    <div class="preview-container" id="preview-container" style="display: none;">
+                        <div class="file-details">
+                            <div class="pdf-icon-small">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                            </div>
+                            <div id="file-name" class="file-name">student_answer.pdf</div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" id="analyze-btn">
+                                <span class="btn-text">Evaluate All</span>
+                                <span class="btn-glow"></span>
+                            </button>
+                            <button class="btn btn-icon" id="clear-btn" title="Remove Files">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section glass-panel fade-in-up" id="results-section" style="display: none;">
+                <div class="panel-header justify-center">
+                    <span class="icon">📊</span>
+                    <h2>Evaluation Dashboard</h2>
+                </div>
+
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="loader-ring">
+                        <div class="loader-ring-inner"></div>
+                    </div>
+                    <p class="loading-text" id="loading-text">Initializing AI models...</p>
+                </div>
+
+                <div id="evaluation-container" style="display: none;">
+
+                    <!-- NEW: Leaderboard Section -->
+                    <div class="leaderboard-section">
+                        <h3 class="leaderboard-title">Student Scores Roster</h3>
+                        <div class="leaderboard-list" id="leaderboard-list">
+                            <!-- JS populated cards -->
+                        </div>
+                    </div>
+
+                    <!-- Detailed View -->
+                    <div id="detailed-student-view" class="detailed-student-view"
+                        style="display:none; margin-top:3rem;">
+                        <h3 id="detail-student-name"
+                            style="text-align:center; margin-bottom:1.5rem; color:var(--primary-main); font-family:var(--font-display); font-size: 1.5rem;">
+                            Student Details</h3>
+                        <div class="dashboard-grid">
+                            <!-- Score Display -->
+                            <div class="score-card modern-card">
+                                <div class="score-ring">
+                                    <div class="score-value-container">
+                                        <span id="final-marks" class="value-huge"></span>
+                                        <span class="value-divider">/</span>
+                                        <span id="out-of-marks" class="value-total"></span>
+                                    </div>
+                                </div>
+                                <h3 class="score-title">Final Grade</h3>
+                                <div class="score-feedback" id="eval-feedback"></div>
+                            </div>
+
+                            <!-- Concepts Display -->
+                            <div class="concepts-card modern-card">
+                                <div class="keyword-group matched-group">
+                                    <h3><span class="status-dot green"></span> Mastered Concepts</h3>
+                                    <div class="tags-container" id="matched-tags"></div>
+                                </div>
+                                <div class="keyword-group missed-group">
+                                    <h3><span class="status-dot red"></span> Missed Concepts</h3>
+                                    <div class="tags-container" id="missed-tags"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="extraction-toggle">
+                            <button class="btn btn-outline" id="toggle-text-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                View Raw Extracted Text
+                            </button>
+                        </div>
+
+                        <div class="extracted-content" id="extracted-text-container" style="display: none;"></div>
+
+                    </div> <!-- End Detailed View -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

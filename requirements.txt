@@ -1,0 +1,12 @@
+Flask==3.0.3
+gradio_client==1.13.3
+Werkzeug==3.0.1
+opencv-python==4.6.0.66
+numpy==1.23.5
+PyMuPDF
+thefuzz
+python-Levenshtein
+nltk
+Authlib
+requests
+
